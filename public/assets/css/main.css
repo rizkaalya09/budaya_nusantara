@@ -1515,9 +1515,9 @@ h1 {
 
 .search-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
     margin-bottom: 50px;
 }
 
