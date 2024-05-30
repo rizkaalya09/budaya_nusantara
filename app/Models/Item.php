@@ -11,7 +11,7 @@ class Item extends Model
     use HasFactory;
     protected $table = 'items';
     public $timestamps = false;
-    protected $fillable = ['name', 'description', 'category_id', 'province_id'];
+    protected $fillable = ['name', 'description', 'category_id', 'province_id', 'image'];
 
     public function category(): BelongsTo
     {

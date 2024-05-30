@@ -44,11 +44,11 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="photo">Photo</label>
-                <input type="file" class="form-control-file" id="photo" name="photo">
-                @if ($item->photo)
+                <label for="image">Photo</label>
+                <input type="file" class="form-control-file" id="image" name="image">
+                @if ($item->image)
                   
-                <img src="{{ asset('assets/images/'.$item->photo) }}" alt="{{ $item->name }}" width="150" class="mt-2">
+                <img src="{{ asset('assets/images/'.$item->image) }}" alt="{{ $item->name }}" width="150" class="mt-2">
                 @else
                 <p>No photo</p>
                 @endif

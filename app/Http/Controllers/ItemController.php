@@ -41,8 +41,8 @@ class ItemController extends Controller
             $request->validated();
 
             $filename = null;
-            if ($request->hasFile('photo')) {
-                $file = $request->file('photo');
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
                 $filename = $request->name . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('assets/images/'), $filename);
             }
@@ -52,7 +52,7 @@ class ItemController extends Controller
                 'description' => $request->description,
                 'category_id' => $request->category_id,
                 'province_id' => $request->province_id,
-                'photo' => $filename,
+                'image' => $filename,
             ]);
 
             DB::commit();
@@ -93,8 +93,8 @@ class ItemController extends Controller
             $request->validated();
 
             $filename = null;
-            if ($request->hasFile('photo')) {
-                $file = $request->file('photo');
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
                 $filename = $request->name . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('assets/images/'), $filename);
             }
@@ -104,7 +104,7 @@ class ItemController extends Controller
                 'description' => $request->description,
                 'category_id' => $request->category_id,
                 'province_id' => $request->province_id,
-                'photo' => $filename,
+                'image' => $filename,
             ]);
 
             DB::commit();
