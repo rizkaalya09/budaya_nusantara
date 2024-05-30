@@ -14,8 +14,9 @@
 <div class="container-province">
     <!-- <h2>Karya Budaya dari Berbagai Suku Bangsa</h2> -->
     <div class="search-container">
-        <form action="{{ route('makanan_tradisional') }}" method="GET">
-           <div class="province-dropdown">
+        <button id="prev-btn" class="btn btn-secondary">Back</button> <!-- Tombol untuk navigasi ke provinsi sebelumnya -->
+        <form id="filter-form" action="{{ route('makanan_tradisional') }}" method="GET">
+            <div class="province-dropdown">
                 <select id="province-select" name="province_id">
                     <option value="">-- Pilih Provinsi --</option>
                     @foreach ($provinces as $province)
@@ -24,7 +25,6 @@
                 </select>
             </div>
         </form>
-        <button id="prev-btn" class="btn btn-secondary">Back</button> <!-- Tombol untuk navigasi ke provinsi sebelumnya -->
         <button id="next-btn" class="btn btn-secondary">Next</button> <!-- Tombol untuk navigasi ke provinsi berikutnya -->
     </div>
 
@@ -53,43 +53,30 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const items = document.querySelectorAll('.province-info');
         const nextBtn = document.getElementById('next-btn');
         const prevBtn = document.getElementById('prev-btn');
         const provinceSelect = document.getElementById('province-select');
         const filterForm = document.getElementById('filter-form');
-        let currentIndex = 0;
+        let currentProvinceIndex = provinceSelect.selectedIndex - 1;
 
-        function showItem(index) {
-            items.forEach((item, i) => {
-                if (i === index) {
-                    item.classList.remove('hidden');
-                } else {
-                    item.classList.add('hidden');
-                }
-            });
+        function updateURL(newIndex) {
+            const selectedProvinceId = provinceSelect.options[newIndex + 1].value;
+            window.location.href = `{{ route('makanan_tradisional') }}?province_id=${selectedProvinceId}`;
         }
 
-        if (items.length > 0) {
-            showItem(currentIndex);
+        nextBtn.addEventListener('click', function () {
+            if (currentProvinceIndex < provinceSelect.options.length - 2) {
+                currentProvinceIndex++;
+                updateURL(currentProvinceIndex);
+            }
+        });
 
-            nextBtn.addEventListener('click', function () {
-                if (currentIndex < items.length - 1) {
-                    currentIndex++;
-                    showItem(currentIndex);
-                }
-            });
-
-            prevBtn.addEventListener('click', function () {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                    showItem(currentIndex);
-                }
-            });
-        } else {
-            nextBtn.style.display = 'none';
-            prevBtn.style.display = 'none';
-        }
+        prevBtn.addEventListener('click', function () {
+            if (currentProvinceIndex > 0) {
+                currentProvinceIndex--;
+                updateURL(currentProvinceIndex);
+            }
+        });
 
         provinceSelect.addEventListener('change', function () {
             filterForm.submit();
